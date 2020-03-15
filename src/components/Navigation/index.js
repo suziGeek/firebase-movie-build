@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 // import { SignUpLink } from "../SignUp";
 import SignOutButton from "../SignOut";
+import { AuthUserContext } from "../Session";
 
-const Navigation = ({ authUser }) => (
+const Navigation = () => (
   <div className='menu-align'>
-    {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
+    <AuthUserContext.Consumer>
+      {authUser => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
+    </AuthUserContext.Consumer>
   </div>
 );
 const NavigationAuth = () => (
@@ -19,6 +22,9 @@ const NavigationAuth = () => (
     </li>
     <li>
       <Link to={ROUTES.ACCOUNT}>Account</Link>
+    </li>
+    <li>
+      <Link to={ROUTES.ADMIN}>Admin</Link>
     </li>
     <li>
       <SignOutButton />
